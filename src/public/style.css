@@ -1,0 +1,142 @@
+body {
+    margin: 0;
+    background-color: #EBDCC8;
+    height: auto;
+}
+
+p {
+    margin: 0;
+}
+
+h2 {
+    margin: 0;
+}
+
+h3 {
+    margin: 0;
+}
+
+.header {
+    font-weight: bold;
+    font-size: 32px;
+    background-color: #000;
+    color: #FFF;
+    padding: 10px;
+}
+
+.search {
+    background-color: beige;
+    border: 1px solid burlywood;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 10px;
+    margin: 0 auto;
+    width: 60%;
+    margin-top: 100px;
+}
+
+.search-txt {
+    margin: 0 20px;
+    width: 60%;
+}
+
+.search-display {
+    border: none;
+    background-color: gray;
+    color: #FFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.inner {
+    margin: 50px auto;
+    width: 60%;
+    margin-top: 100px;
+    border: 1px solid burlywood;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: beige;
+}
+
+.post-content {
+    margin: 5px 0;
+}
+
+.center {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.under {
+    background: linear-gradient(transparent 70%, pink 70%);
+}
+
+.comment-list {
+    margin: 5px 0;
+}
+
+.btn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.comment-area {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+
+.updateBtn {
+    border: none;
+    background-color: #FFF;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.deleteBtn {
+    border: none;
+    background-color: #FFF;
+    cursor: pointer;
+}
+
+.input-form {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.name {
+    width: 70%;
+    margin-bottom: 10px;
+    padding: 10px 5px;
+}
+
+.comment-txt {
+    width: 70%;
+    margin-bottom: 10px;
+    resize: none;
+    height: 100px;
+    padding: 10px 5px;
+}
+
+.add-btn {
+    width: 50%;
+    padding: 10px 20px;
+    border: none;
+    background-color: orange;
+    border-radius: 10px;
+    color: #FFF;
+    font-size: 20px;
+}
+
+.post-list {
+    margin: 5px 0;
+}
+
+.link {
+    text-decoration: none;
+}
