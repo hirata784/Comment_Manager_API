@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,10 @@ use App\Http\Controllers\CommentController;
 |
 */
 
-Route::apiResource('/posts/{post_id}/comments', CommentController::class);
+// PostController(投稿関連)
+Route::apiResource('/posts', PostController::class);
+// CommentController(コメント関連)
+Route::get('posts/{post_id}/comments', [CommentController::class, 'index']);
+Route::post('posts/{post_id}/comments', [CommentController::class, 'store']);
+Route::put('comments/{id}', [CommentController::class, 'update']);
+Route::delete('comments/{id}', [CommentController::class, 'destroy']);
