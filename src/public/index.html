@@ -15,57 +15,34 @@
         <input type="text" class="search-txt">
         <button class="search-display">表示</button>
     </div>
-
     <div class="inner">
         <div class="post-content">
             <div>
-                <h2 class="center">投稿内容</h2>
-                <p><span class="under">JavaScript学習始めました</span></p>
-                <p>コメント管理APIの作成にチャレンジ中。</p>
+                <h2 class="center-line">投稿内容</h2>
+                <div id="js-post-content">
+                </div>
             </div>
         </div>
         <div class="comment-list">
-            <h2 class="center">コメント一覧</h2>
-            <div>
-                <div class="comment-area">
-                    <p>1.テスト太郎</p>
-                    <p>私も始めました</p>
-                    <div class="btn">
-                        <button class="updateBtn">編集</button>
-                        <button class="deleteBtn">削除</button>
-                    </div>
-                </div>
-                <div class="comment-area">
-                    <p>2.テスト次郎</p>
-                    <p>一緒に頑張りましょう</p>
-                    <div class="btn">
-                        <button class="updateBtn">編集</button>
-                        <button class="deleteBtn">削除</button>
-                    </div>
-                </div>
+            <h2 class="center-line">コメント一覧</h2>
+            <div id="js-comment-list">
             </div>
         </div>
-        <form action="" class="input-form">
-            <h2 class="center">入力フォーム</h2>
+        <form action="" class="input-form" id="js-form">
+            <h2 class="center-line">入力フォーム</h2>
             <p>名前</p>
-            <input type="text" class="name">
+            <input type="text" class="name" id="js-name">
             <p>コメント</p>
-            <textarea class="comment-txt" name="" id=""></textarea>
-            <button class="add-btn">追加</button>
+            <textarea class="comment-txt" name="" id="js-content"></textarea>
+            <button class="add-btn" id="js-add">追加</button>
         </form>
         <div class="post-list">
-            <h2 class="center">投稿一覧</h2>
-            <div>
-                <a href="" class="link">UI作成しました</a>
-            </div>
-            <div>
-                <a href="" class="link">表示機能作成しました</a>
-            </div>
-            <div>
-                <a href="" class="link">コメント追加機能作成しました</a>
+            <h2 class="center-line">投稿一覧</h2>
+            <div id="js-post-list">
             </div>
         </div>
     </div>
+    <script src="./main.js"></script>
 </body>
 
 </html>

@@ -63,9 +63,13 @@ h3 {
     margin: 5px 0;
 }
 
-.center {
+.center-line {
     text-align: center;
     text-decoration: underline;
+}
+
+.center {
+    text-align: center;
 }
 
 .under {
