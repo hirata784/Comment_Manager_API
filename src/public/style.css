@@ -92,17 +92,26 @@ h3 {
     margin: 10px 0;
 }
 
-.updateBtn {
+.updateBtn,
+.updateReady {
     border: none;
     background-color: #FFF;
     cursor: pointer;
     margin-right: 10px;
 }
 
-.deleteBtn {
+.deleteBtn,
+.cancelBtn {
     border: none;
     background-color: #FFF;
     cursor: pointer;
+}
+
+.comTxt {
+    background-color: pink;
+    border: none;
+    outline: none;
+    width: 100%;
 }
 
 .input-form {
