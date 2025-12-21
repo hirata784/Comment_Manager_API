@@ -49,6 +49,11 @@ h3 {
     border-radius: 5px;
 }
 
+.error-search {
+    width: 60%;
+    margin: 0 auto;
+}
+
 .inner {
     margin: 50px auto;
     width: 60%;
@@ -134,6 +139,11 @@ h3 {
     resize: none;
     height: 100px;
     padding: 10px 5px;
+}
+
+.error-name,
+.error-content {
+    margin: 0;
 }
 
 .add-btn {

@@ -5,9 +5,18 @@ const postList = document.getElementById("js-post-list");
 const form = document.getElementById("js-form");
 const nameTxt = document.getElementById("js-name");
 const contentTxt = document.getElementById("js-content");
+const searchTxt = document.getElementById("js-search-txt");
+const searchBtn = document.getElementById("js-search-btn");
+const errorSearch = document.getElementById("js-error-search");
+const errorName = document.getElementById("js-error-name");
+const errorContent = document.getElementById("js-error-content");
+// true：エラーあり false：エラーなし
+let nameErrorReturn = false;
+let contentErrorReturn = false;
 
 // イベント
 form.addEventListener("submit", addComment);
+searchBtn.addEventListener("click", searchId);
 
 // 投稿一覧リンクにイベントを付与
 postList.addEventListener("click", (e) => {
@@ -104,6 +113,24 @@ async function loadFirst() {
     });
 }
 
+// 投稿ID検索
+async function searchId() {
+    // 入力値を数値に変換して取得
+    const id = parseInt(searchTxt.value);
+    // バリデーションエラーチェック
+    // 数値未入力エラー
+    if (Number.isInteger(id)) {
+        errorSearch.innerText = "";
+        searchTxt.value = "";
+        // 投稿選択関数を実行
+        loadPost(id);
+    } else {
+        errorSearch.innerText = "数値を入力してください。";
+        errorSearch.style.color = "red";
+        return;
+    }
+}
+
 // 投稿を選択
 async function loadPost(id) {
     // APIからデータを取得
@@ -173,20 +200,44 @@ async function addComment(e) {
     const element = document.getElementById('js-under');
     const id = element.dataset.post;
 
-    // APIへ送信
-    const res = await fetch("api/posts/" + id + "/comments", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, content }),
-    })
+    // バリデーションエラーチェック
+    // 名前未入力エラー
+    if (name.length <= 0) {
+        errorName.innerHTML = "名前を入力してください";
+        errorName.style.color = "red";
+        nameErrorReturn = true;
+    } else {
+        errorName.innerHTML = "";
+        nameErrorReturn = false;
+    }
+    // コメント未入力エラー
+    if (content.length <= 0) {
+        errorContent.innerHTML = "コメントを入力してください";
+        errorContent.style.color = "red";
+        contentErrorReturn = true;
+    } else {
+        errorContent.innerHTML = "";
+        contentErrorReturn = false;
+    }
 
-    // テキストボックス内を空にする
-    nameTxt.value = "";
-    contentTxt.value = "";
-
-    loadPost(id);
+    // エラーが発生した場合、処理を中止する
+    if (nameErrorReturn == true || contentErrorReturn == true) {
+        return;
+    } else {
+        // APIへ送信
+        const res = await fetch("api/posts/" + id + "/comments", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, content }),
+        })
+        // テキストボックス内を空にする
+        nameTxt.value = "";
+        contentTxt.value = "";
+        // 現在表示中の投稿を再読み込み
+        loadPost(id);
+    }
 }
 
 // コメント保存
@@ -204,7 +255,6 @@ async function commentUpdate(id, postId) {
         },
         body: JSON.stringify({ content }),
     })
-
     // 現在表示中の投稿を再読み込み
     loadPost(postId);
 }
@@ -246,7 +296,6 @@ async function updateReady(id, row) {
         // (js-comment-list)の中に追加
         commentList.appendChild(div);
     });
-
     // 編集ボタンを押下したコメントエリアのみ背景をピンクに変更
     const commentArea = document.getElementsByClassName("comment-area");
     commentArea[row].style.background = "pink";
@@ -261,7 +310,6 @@ async function deleteComment(id, postId) {
             "Content-Type": "application/json",
         }
     });
-
     // 現在表示中の投稿を再読み込み
     loadPost(postId);
 }
