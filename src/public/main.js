@@ -3,13 +3,9 @@ const postContent = document.getElementById("js-post-content");
 const commentList = document.getElementById("js-comment-list");
 const postList = document.getElementById("js-post-list");
 const form = document.getElementById("js-form");
-const nameTxt = document.getElementById("js-name");
-const contentTxt = document.getElementById("js-content");
 const searchTxt = document.getElementById("js-search-txt");
 const searchBtn = document.getElementById("js-search-btn");
 const errorSearch = document.getElementById("js-error-search");
-const errorName = document.getElementById("js-error-name");
-const errorContent = document.getElementById("js-error-content");
 // true：エラーあり false：エラーなし
 let nameErrorReturn = false;
 let contentErrorReturn = false;
@@ -102,14 +98,14 @@ async function loadFirst() {
     postList.innerHTML = "";
     // 取得した投稿一覧をHTMLに追加
     listData.data.forEach((post) => {
-        const div3 = document.createElement("div");
-        div3.innerHTML = `
+        const div4 = document.createElement("div");
+        div4.innerHTML = `
         <div>
             <a href="" class="link" data-id="${post.id}">${post.title}</a>
         </div>
     `;
         // (js-comment-list)の中に追加
-        postList.appendChild(div3);
+        postList.appendChild(div4);
     });
 }
 
@@ -135,6 +131,36 @@ async function searchId() {
 async function loadPost(id) {
     // APIからデータを取得
     const postRes = await fetch("/api/posts/" + id);
+    // 投稿IDが存在しない場合、メッセージを表示してリターンする
+    if (!postRes.ok) {
+        // 【投稿内容】
+        // 以前の内容をクリア
+        postContent.innerHTML = "";
+        // 取得した投稿内容をHTMLに追加
+        const div = document.createElement("div");
+        div.innerHTML = `
+        <p class="center">該当の投稿IDは存在しません。</p>
+    `;
+        // (js-post-content)の中に追加
+        postContent.appendChild(div);
+
+        // 【コメント一覧】
+        // 以前の内容をクリア
+        commentList.innerHTML = "";
+        // 取得したコメント内容をHTMLに追加
+        const div2 = document.createElement("div");
+        div2.innerHTML = `
+        <p class="center">該当の投稿IDは存在しません。</p>
+    `;
+        // (js-comment-list)の中に追加
+        commentList.appendChild(div2);
+
+        // 【入力フォーム】
+        // 以前の内容をクリア
+        form.innerHTML = "";
+        return;
+    }
+
     const commentRes = await fetch("/api/posts/" + id + "/comments");
     const listRes = await fetch("/api/posts");
     // JSONに変換
@@ -174,25 +200,54 @@ async function loadPost(id) {
         commentList.appendChild(div2);
     });
 
+    // 【入力フォーム】
+    // 以前の内容をクリア
+    form.innerHTML = "";
+    // 入力フォームをHTMLに追加
+    const div3 = document.createElement("div");
+    div3.innerHTML = `
+    <h2 class="center-line">入力フォーム</h2>
+    <div class="form-group">
+        <p>名前</p>
+        <input type="text" class="name" id="js-name">
+        <div class="error-name" id="js-error-name"></div>
+        <p>コメント</p>
+        <textarea class="comment-txt" name="" id="js-content"></textarea>
+        <div class="error-content" id="js-error-content"></div>
+    </div>
+    <button class="add-btn" id="js-add">追加</button>
+    `;
+
+    // クラスを設定
+    div3.className = "inner-form";
+    // (input-form)の中に追加
+    form.appendChild(div3);
+
     // 【投稿一覧】
     // 以前の内容をクリア
     postList.innerHTML = "";
     // 取得した投稿一覧をHTMLに追加
     listData.data.forEach((post) => {
-        const div3 = document.createElement("div");
-        div3.innerHTML = `
+        const div4 = document.createElement("div");
+        div4.innerHTML = `
         <div>
             <a href="" class="link" data-id="${post.id}">${post.title}</a>
         </div>
     `;
         // (js-comment-list)の中に追加
-        postList.appendChild(div3);
+        postList.appendChild(div4);
     });
 }
 
 // コメント追加
 async function addComment(e) {
     e.preventDefault(e);
+    // 変数
+    const nameTxt = document.getElementById("js-name");
+    const contentTxt = document.getElementById("js-content");
+    const errorName = document.getElementById("js-error-name");
+    const errorContent = document.getElementById("js-error-content");
+
     // 入力値を取得
     const name = nameTxt.value;
     const content = contentTxt.value;
@@ -203,7 +258,7 @@ async function addComment(e) {
     // バリデーションエラーチェック
     // 名前未入力エラー
     if (name.length <= 0) {
-        errorName.innerHTML = "名前を入力してください";
+        errorName.innerHTML = "名前を入力してください。";
         errorName.style.color = "red";
         nameErrorReturn = true;
     } else {
@@ -212,7 +267,7 @@ async function addComment(e) {
     }
     // コメント未入力エラー
     if (content.length <= 0) {
-        errorContent.innerHTML = "コメントを入力してください";
+        errorContent.innerHTML = "コメントを入力してください。";
         errorContent.style.color = "red";
         contentErrorReturn = true;
     } else {
